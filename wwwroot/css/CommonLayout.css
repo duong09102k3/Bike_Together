@@ -1,0 +1,176 @@
+﻿body {
+    margin: 0 auto;
+    /* font-size: 62.5%; */
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+ul {
+    list-style-type: none;
+}
+
+#headerLayout {
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+    /* background-color: #ce7a58; */
+    padding: 10px 0;
+}
+
+#logoBlock {
+}
+
+#logoWeb {
+    height: 100%;
+    object-fit: cover;
+}
+
+ul {
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
+#statusLogin {
+    display: block;
+    margin: auto 0;
+}
+
+.buttonStatus_new {
+    padding-top: 2px;
+    font-size: 13px;
+    text-align: center;
+}
+
+    .buttonStatus_new a {
+        text-decoration: none !important;
+        color: black;
+    }
+
+.buttonStatus {
+    padding: 5px;
+    display: inline-block;
+    gap: 10px;
+    border: 1px solid #1579A8;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.2s
+}
+
+    .buttonStatus:hover, .buttonStatus_new:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+
+a#login {
+    padding: 8px 15px;
+}
+
+#unLoginedtatus {
+    /* display: none; */
+}
+
+
+#loginedStatus {
+    display: flex;
+    flex-direction: row;
+}
+
+.statusLogin_ul {
+    display: flex;
+    justify-content: end;
+    gap: 15px;
+    margin-top: 3rem;
+    margin-left: -20px;
+}
+
+.statusLogin_ul_new {
+    margin-left: 1.8rem;
+    margin-top: 2.7rem;
+    display: flex;
+    flex-direction: column
+}
+
+#loginedStatus {
+    margin-top: 1.2rem;
+    position: relative;
+}
+
+    #loginedStatus img {
+        position: absolute;
+        left: 43%;
+        top: -1.5rem;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%
+    }
+
+#footerLayout {
+    text-align: center;
+    margin-top: 2rem;
+    background-color: aquamarine;
+}
+
+#footerBlock {
+    padding: 25px 0;
+    position: relative;
+}
+
+#imgBoCongThuong {
+    position: absolute;
+    right: 130px;
+}
+
+#expandAction {
+}
+
+@media (min-width: 1024px) {
+    html {
+        font-size: 16px;
+    }
+
+    .buttonStatus {
+        padding: 2px 12px;
+        font-size: 18px;
+    }
+
+    .statusLogin_ul_new {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        gap: 15px;
+        margin-top: 3rem
+    }
+
+    .buttonStatus_new {
+        font-size: 18px;
+    }
+}
+/*tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    html {
+        font-size: 16px;
+    }
+
+    .buttonStatus {
+        padding: 2px 12px;
+        font-size: 16px;
+    }
+
+    .statusLogin_ul_new {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        gap: 15px;
+        margin-top: 3rem
+    }
+
+    .buttonStatus_new {
+        font-size: 18px;
+    }
+}

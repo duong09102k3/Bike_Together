@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<link rel="stylesheet" href="~/css/styleIndex.css" asp-append-version="true" />
+<div class="body">
+    <div class="title">
+        <p>Cho thuê xe đạp Hà Nội</p>
+        <p style="color: green; margin-top: 0.5rem">
+            Danh mục tìm kiếm :
+            <span style="color: #c3740b">
+                
+            </span>
+        </p>
+    </div>
+    <div class="content-body">
+        <div class="left ">
+            <div class="content-items">
+                @*content-item*@
+            </div>
+            @* <div class="property-type-article">
+                <div class="title">Những lưu ý khi thuê Phòng trọ, nhà trọ</div>
+                <div class="content">
+                    <ul>
+                        <li>
+                            <strong>Xác minh chủ phòng trọ</strong>: Cần yêu cầu chủ nhà
+                            trình giấy tờ để xác nhận tư cách thực của chủ nhà là chủ
+                            nhà hoặc là chủ nhà thứ 2 ( nếu là chủ nhà thứ 2, cần yêu
+                            cầu người đó trình bản hợp đồng với chủ nhà, tìm hiểu rốt
+                            cuộc có thỏa thuận nghiêm cấm cho người khác thuê lại hay
+                            không.
+                        </li>
+                        <li>
+                            <strong>Tiền thuê</strong>: Tiền thuê là bao nhiêu? Nộp lúc
+                            nào? Thời hạn thuê bao lâu?&nbsp;
+                        </li>
+                        <li>
+                            <strong>Tiền đặt cọc</strong>: Có cần chi tiền đặt cọc hay
+                            không? Trị giá bao nhiêu? Khi nào được hoàn tiền đặt cọc?
+                        </li>
+                        <li>
+                            <strong>Các chi phí khác</strong>: Tiền điện, tiền nước,
+                            internet, phí giữ xe, và các chi phí khác nếu có?
+                        </li>
+                        <li>
+                            <strong>Chấm dứt hợp đồng</strong>: Có thể chấm dứt hợp đồng
+                            trước thời hạn không? Cần phải báo trước bao nhiêu ngày?
+                            Thời gian được hoàn lại tiền đặt cọc (nếu có).
+                        </li>
+                        <li>
+                            <strong>Điều kiện sử dụng:&nbsp;</strong>Số người được ở tối
+                            đa, được phép nấu ăn, được phép tiếp khách,...
+                        </li>
+                        <li>
+                            <strong>Thiết bị gia dụng</strong>: Kiểm tra tình trạng
+                            những đồ gia dụng và thiết bị được chủ nhà cung cấp?&nbsp;<a href=""
+                                                                                         style="color: blue"
+                                                                                         target="_blank"><span style="color: rgb(0, 0, 205)">Đọc thêm</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div> *@
+        </div>
+        <div class="right ">
+            <div class="review">
+                <div>
+                    <div class="text">
+                        <div style="color: green" class="name">
+                            <span style="color: #000">Chuyên mục:</span>
+                            <span>
+                                Cho thuê xe đạp tại Hà Nội, xe đạp điện, xe đạp thể thao.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="search-box">
+                <div>
+                    <input type="text"
+                           class="location"
+                           placeholder="Nhập địa điểm cần tìm" />
+                </div>
+                <div class="" style="display: flex; flex-wrap: wrap">
+                    <div class="province-container multicolumns">
+                        <div class="text" name="1">Hà Nội</div>
+                    </div>
+                    <div class="district-container multicolumns">
+                        <div class="text-name">
+                            <div class="text " id="text-district" name="409">Quận Đống Đa</div>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="view active-view">
+                            <span class="exit">Quận/Huyện</span>
+                            <i class="fas fa-times"></i>
+                            <div class="row district">
+                                @*district*@
+                            </div>
+                            <div class="ajax-loading" style="display: none"></div>
+                        </div>
+                    </div>
+                    <div class="price-container multicolumns">
+                        <div class="text-name">
+                            <div class="text" id="text-price" name="0">-------- Giá ------</div>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="view active-view">
+                            <span class="exit">Mức giá</span>
+                            <i class="fas fa-times"></i>
+                            <div class="row price">
+                                @*price*@
+                            </div>
+                        </div>
+                    </div>
+                 
+                </div>
+                <div class="quick-search">
+                    <div id="button-search">Tìm nhanh</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/js/HomeBike.js"></script>
+

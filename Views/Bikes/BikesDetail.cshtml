@@ -1,0 +1,134 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model BikesDetailViewModel
+
+}
+
+
+<div id="detailProduct" class="container">
+    <div id="titleDetail">
+        <div id="title"> @Model.Bikes.NameBike</div>
+        <div id="ngayDang"><i> Ngày đăng:  @Model.Bikes.CreatedAt?.ToString("dd/MM/yyyy") </i></div>
+    </div>
+    <div id="description">
+        <div>
+            <p style="margin-bottom:1rem ; font-size:2rem"><b>Thông tin chi tiết về xe: </b></p>
+            <p>
+                - @Model.Bikes.Description
+            </p>
+            <p>- Giá: @string.Format("{0:#,#} k/Giờ", @Model.Bikes.Price).</p>
+            <p>- Địa chỉ: @Model.Bikes.Address</p>
+        </div>
+       @*  <div style="display: flex; margin-bottom: 1rem; margin-top:1rem;">
+            <span id="price" style="flex: 1">
+                Giá: <span class="highLight">@string.Format("{0:#,#} k/Giờ", @Model.Bikes.Price)</span>
+            </span>
+        </div>
+        <span class="mainDetail" id="address">
+            Địa chỉ:
+            <span id="detailAddress">@Model.Bikes.Address</span>
+        </span> *@
+        <div id="imageRoomBlock">
+            @foreach (var image in Model.Images)
+            {
+                <img class="imageDetail @(image == Model.Images[0] ? "imageDetailActive" : "")"
+                     src="@image.Url"
+                     alt="" />
+            }
+        </div>
+        <div id="imageRoomBlockSmall">
+            @foreach (var image in Model.Images)
+            {
+                <img class="imageDetailSmall @(image == Model.Images[0] ? "imageDetailSmallActive" : "")"
+                     src="@image.Url"
+                     alt="" />
+            }
+        </div>
+
+        <!-- <div class="id">Google Map</div> -->
+        @if (Context.Session.GetString("Username") != null)
+        {
+            @if (Model.IsScheduled == true)
+            {
+                <div>
+                    <div style="text-align:center">Xe đã được thuê</div>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <div style="text-align:center" id="book_room">Thuê xe</div>
+                </div>
+            }
+
+        }
+        else
+        {
+            <div>
+                <div id="book_login"><a id="houseDetail_login" class="" asp-area="" asp-controller="Access" asp-action="Login">Đăng nhập ngay để thuê xe ngay</a></div>
+            </div>
+        }
+
+        @using (Html.BeginForm("AddNoteBookingBikes", "Bikes", FormMethod.Post))
+        {
+            <input type="hidden" name="BikesId" id="houseId" value="@Model.Bikes.Id">
+            <div id="bookingModal" style="font-size:1.5rem" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="font-size:2rem; text-align:center ; color:#0481A0;font-weight:bold">Thuê Xe</h5>
+                            <button type="button" style="font-size:2rem" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <h6 style="font-size:2rem ;font-weight:bold">Thông Tin Xe:</h6>
+                            <p><strong>Tên:</strong> @Model.Bikes.NameBike</p>
+                            <p><strong>Mô Tả:</strong> @Model.Bikes.Description</p>
+                            <p><strong>Thời gian:</strong> @DateTime.Now.Date.ToString("dd/MM/yyyy")</p>
+
+
+                            <h6 style="font-size:2rem ;font-weight:bold">Thông Tin Khách Hàng:</h6>
+                            <div class="form-group">
+                                <label for="name">Tên:</label>
+                                <input disabled type="text" value="@Context.Session.GetString("NameLogined")" class="form-control" id="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input disabled type="email" value="@Context.Session.GetString("Username")" class="form-control" id="email">
+                            </div>
+
+                            <h6 style="color:#0481A0">Ghi Chú:</h6>
+                            <textarea id="node" name="note" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                            <button type="submit" id="Xacnhandatphong" class="btn btn-primary">Xác Nhận Thuê Xe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div style="margin-top:1rem" class="alert alert-success" role="alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <div id="note">
+            <h4>Lưu ý:</h4>
+            <p>
+                Nếu có thắc mắc/phản ánh thông tin xê, vui lòng liên hệ với
+                đội ngũ hỗ trợ khách hàng của chúng tôi qua:
+            </p>
+            <p>- Đường dây nóng: 0987654321</p>
+            <p>- Email: fakeEmail@gmail.com</p>
+        </div>
+        <div id="go_home">
+            <a href="/"> <i>Quay về trang chính</i></a>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/BikesDetail.js"></script>

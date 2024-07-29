@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BikeTogether</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BikeTogether.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/CommonLayout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styleLogin.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styleRegister.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/userInfo.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styleBikesDetail.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/UserInfoBikesBooking.css" asp-append-version="true" />
+
+    @*
+    <link rel="stylesheet" href="~/ProjectQuanLy.styles.css" asp-append-version="true" />*@
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+
+    @*jQuery*@
+    <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    @*DataTables*@
+    <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <script language="JavaScript" type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+    @*jsTree*@
+    <link href="~/css/jstree.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+    <script language="JavaScript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+
+    @*Bootstrap modal*@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+    @*Assets Project*@
+    <link href="~/css/indexAdmin.css" rel="stylesheet" />
+    @*<link href="~/css/phanquyen.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="~/css/fontawesome-free-6.3.0-web/css/all.min.css">
+
+</head>
+<body>
+<header>
+        <div id="headerLayout" class="container">
+            <div id="logoBlock">
+                <a href="@Url.Action("Index", "Home")"><img id="logoWeb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPkst6Hx5zVJNQcE9s86V54gUln5wa679hiw&s" alt=""></a>
+            </div>
+            <div id="statusLogin">
+                @if (Context.Session.GetString("Role") == null)
+                {
+                    <div id="unLoginedtatus">
+                        <ul class="statusLogin_ul">
+                            <li class="buttonStatus"> <a id="login" class="" style="text-decoration:none" asp-area="" asp-controller="Access" asp-action="Login">Đăng Nhập</a></li>
+                            <li class="buttonStatus"> <a id="register" class="" style="text-decoration:none" asp-area="" asp-controller="Access" asp-action="Register">Đăng Ký</a></li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div id="loginedStatus">
+                        @if (Context.Session.GetString("Role") == "role1")
+                        {
+                            <img src="~/images/image_admin.jpg" />
+                        } else
+                        {
+                            <img src="~/images/image_user.jpg" />
+                        }
+                        <ul  class="statusLogin_ul_new" style="text-decoration:none">
+                            @if (Context.Session.GetString("Role") == "role1")
+                            {
+                                <li class=" buttonStatus_new"><a href="@Url.Action("BikeManage", "Admin")">Xin chào Admin <b>@Context.Session.GetString("NameLogined")</b></li>
+                            }
+                            else
+                            {
+                                <li class=" buttonStatus_new">Xin chào <b>@Context.Session.GetString("NameLogined")</b></li>
+                            }
+                           
+                            <li class=" buttonStatus_new">
+                                <a href="/User/UserInfo">
+                                    Hồ sơ cá nhân
+                                </a>
+                            </li>
+                            <li id="logoutButton" class=" buttonStatus_new">Thoát</li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <div class="fly"></div>
+    <div id="loginFormContainer"></div>
+    <div id="registerFormContainer"></div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+           
+        </div>
+    </footer>
+    <script src="~/js/register.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+        // Gắn sự kiện click vào nút "Thoát"
+        $('#logoutButton').click(function () {
+            // Gửi yêu cầu POST đến action "Logout"
+            $.post('/Access/Logout', function () {
+                // Chuyển hướng đến trang đăng nhập sau khi logout thành công
+                window.location.href = '/Home/Index';
+            });
+        });
+    });
+</script>

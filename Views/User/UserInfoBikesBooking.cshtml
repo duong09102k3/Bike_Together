@@ -1,0 +1,131 @@
+﻿@using BikeTogether.ViewModels
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model UserInfoBikesBookingViewModel
+
+}
+<div class="user-info-booking col-lg-12 ">
+    <div class=" user-info-booking-row-1 ">
+        <div class="img-user">
+            @if (Context.Session.GetString("Role") == "role1")
+            {
+                <img src="~/images/image_admin.jpg" />
+            }
+            else
+            {
+                <img src="~/images/image_user.jpg" />
+            }
+            <p>@Model.user.Name</p>
+        </div>
+        <div class="list-info-user">
+            <ul>
+                <li><i class="far fa-user"></i>  <a href="/User/UserInfo"> Thông tin tài khoản</a></li>
+                <li><i class="fas fa-home"></i>Danh sách xe đặt</li>
+            </ul>
+        </div>
+    </div>
+    <div id="ModifiedModal" style="font-size:1.5rem" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="form">
+                    <div class="modal-body">
+                        <h6 style="color:#0481A0">Ghi Chú:</h6>
+                        <textarea id="note" name="note" class="form-control" rows="3"></textarea>
+                        <input type="hidden" id="bookingIdInput" name="bookingId" />
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="submit" id="editNoteBooking" class="btn btn-primary">Sửa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="user-info-booking-row-2  ">
+        <div class="title-user">
+            <h1>Danh sách xe đặt</h1>
+        </div>
+        <div class="text-info-user-booking">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Tên xe</th>
+                        <th>Địa chỉ</th>
+                        <th>Giá</th>
+                        <th>Ngày đặt</th>
+                        <th>Ghi chú</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var booking in @Model.bookingList)
+                    {
+                        <tr>
+                            <td>@booking.bikeName</td>
+                            <td>@booking.bikeAddress</td>
+                            <td>@booking.bikePrice</td>
+                            <td>@booking.bikeCreatedAt</td>
+                            <td>@booking.bikeTittle</td>
+                            <td>
+                                <i id="edit-house-booking" class="far fa-edit modifile" data-booking-id="@booking.bookingId"></i>
+                                <i onclick="DeleteBooking('@booking.bookingId.ToString("D")')" id="delete-house-booking" class="fas fa-trash-alt" data-booking-id="@booking.bookingId"></i>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    function DeleteBooking(bookingId) {
+        if (confirm("Bạn có chắc muốn xóa lịch đặt xe này ko ?")) {
+            window.location.href = "/User/DeleteBooking?bookingId=" + bookingId;
+        }
+    }
+    $(document).ready(function () {
+        $('.modifile').click(function () {
+            var bookingId = $(this).data('booking-id');
+            $('#bookingIdInput').val(bookingId);
+            $('#ModifiedModal').modal('show');
+        });
+
+        $('#editNoteBooking').click(function (e) {
+            e.preventDefault();
+            var bookingId = $('#bookingIdInput').val();
+            var note = $('#note').val().trim();
+
+            if (!note) {
+                alert("Vui lòng điền ghi chú!");
+                return;
+            }
+
+            var data = JSON.stringify({
+                BookingId: bookingId,
+                Note: note
+            });
+
+            $.ajax({
+                url: '/BookingBike/ModifyNoteBookingBike',
+                type: 'POST',
+                contentType: 'application/json',
+                data: data,
+                success: function (result) {
+                    if (result === 1) {
+                        alert('Cập nhật thành công!');
+                        $('#ModifiedModal').modal('hide');
+                    } else {
+                        alert('Cập nhật thất bại!');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert(xhr.responseText);
+                    console.log(xhr.responseText)
+                }
+            });
+        });
+    });
+
+</script>

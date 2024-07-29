@@ -1,0 +1,66 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model User
+
+}
+<div class="user-info col-lg-8 ">
+    <div class="user-info-row-1 ">
+        <div class="img-user">
+            @if (Context.Session.GetString("Role") == "role1")
+            {
+                <img src="~/images/image_admin.jpg" />
+            }
+            else
+            {
+                <img src="~/images/image_user.jpg" />
+            }
+            <p>@Model.Name</p>
+        </div>
+        <div class="list-info-user">
+            <ul>
+                <li><i class="far fa-user"></i> Thông tin tài khoản</li>
+                <a href="/User/UserInfoBikesBooking">
+                <li><i class="fas fa-home"></i>Danh sách xe đã đặt</li>
+                </a>
+            </ul>
+        </div>
+    </div>
+    <div class="user-info-row-2 ">
+        <div class="title-user">
+            <h1>Thông tin tài khoản</h1>
+        </div>
+        <div class="text-info-user">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td>
+                            Họ tên:
+                        </td>
+                        <td>
+                            @Model.Name
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Email
+                        </td>
+                        <td>
+                            @Model.Email
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Số điện thoại
+                        </td>
+                        <td>
+                            @Model.PhoneNumber
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
